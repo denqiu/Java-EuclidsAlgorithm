@@ -1,0 +1,22 @@
+Private Sub openData()
+    Dim filePath, dataContent As String
+    filePath = ThisWorkbook.Path + "\" + Me.Name + ".txt"
+    Open filePath For Input As #1
+    dataContent = Input(LOF(1), 1)
+    Close #1
+    Me.Cells.Clear
+    Dim columns, readData, getRow As Variant
+    columns = Array("A", "B", "C", "D")
+    readData = Split(dataContent, ":")
+    For i = 0 To getArrayLength(readData)
+        dataContent = readData(i)
+        getRow = Split(dataContent, ",")
+        For j = 0 To getArrayLength(getRow)
+            Me.Cells((i + 1), columns(j)).Value = getRow(j)
+        Next j
+    Next i
+End Sub
+
+Private Function getArrayLength(getArray As Variant) As Long
+    getArrayLength = UBound(getArray) - LBound(getArray)
+End Function
